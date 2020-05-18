@@ -15,6 +15,34 @@ import {
 } from '@elastic/eui';
 
 
+// id: ID!
+// name: String @fake(type:fullName)
+// email: String @fake(type:email)
+// status: String @examples(values: ["Active", "Inactive"])
+
+
+const users = [
+  {
+    id:1,
+    name: "faker 1",
+    email: "fake@fake.dk",
+    status: "Active"
+  },
+  {
+    id: 2,
+    name: "faker 2",
+    email: "fake@fake.com",
+    status: "Active"
+  },
+  {
+    id: 3,
+    name: "faker 3",
+    email: "fake@fake.in",
+    status: "Inactive"
+  }
+];
+
+
 function App() {
   return (
     <EuiPage>
@@ -38,6 +66,16 @@ function App() {
 
             Add user form
             userlist
+
+           
+              <ul>
+            {users.map( user => <li key={user.id}>
+              {user.name}
+              </li> )}
+
+            </ul>
+
+           
 
 
           </EuiPageContentBody>
