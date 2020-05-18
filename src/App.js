@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AddUserForm } from './AddUserForm';
-import { UsersTable } from './UsersList';
+import { UsersTable } from './UsersTable';
+import { UsersList } from './UsersList';
 
 import {
   EuiPage,
@@ -15,6 +16,7 @@ import {
 } from '@elastic/eui';
 import '@elastic/eui/dist/eui_theme_light.css';
 import './App.css';
+import { FilterUsers } from './FilterUsers';
 
 
 // id: ID!
@@ -47,13 +49,28 @@ const users = [
 
 function App() {
 
-  const [state, setState] = useState({ users });
+  const [state, setState] = useState(
+    {
+      users: users,
+      filteredUsers: [...users]
+    }
+  );
 
 
   const addUser = userDetails => {
     const newUser = { ...userDetails, id: state.users.length + 1 }
     setState(previousState => ({ users: [...previousState.users, newUser] }));
   }
+
+  const filterUsers = filterText => {
+
+    if (!filterText) {
+      return state.users;
+    }
+
+    return state.users.filter(user => user.name.includes(filterText));
+  }
+
 
   return (
     <EuiPage>
@@ -76,6 +93,8 @@ function App() {
           <EuiPageContentBody>
 
             <AddUserForm onSubmit={addUser}></AddUserForm>
+            <FilterUsers onFilter={filterUsers}></FilterUsers>
+            <UsersList users={state.users}></UsersList>
             <UsersTable users={state.users}></UsersTable>
 
           </EuiPageContentBody>
