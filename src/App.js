@@ -13,6 +13,7 @@ import {
   EuiPageHeaderSection,
   EuiTitle,
 } from '@elastic/eui';
+import { AddUserForm } from './AddUserForm';
 
 
 // id: ID!
@@ -42,14 +43,21 @@ const users = [
   }
 ];
 
-function AddUserForm() {
-  return (
-    <h1>Add form</h1>
-  );
-}
+
+
 
 
 function App() {
+
+
+  const addUser = userDetails => {
+    debugger;
+    // Add user to state collection
+  }
+
+
+
+
   return (
     <EuiPage>
       <EuiPageBody component="div">
@@ -70,7 +78,7 @@ function App() {
           </EuiPageContentHeader>
           <EuiPageContentBody>
 
-            <AddUserForm></AddUserForm>
+            <AddUserForm onSubmit={addUser}></AddUserForm>
             userlist
 
 
