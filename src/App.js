@@ -23,7 +23,7 @@ import {
 
 const users = [
   {
-    id:1,
+    id: 1,
     name: "faker 1",
     email: "fake@fake.dk",
     status: "Active"
@@ -42,6 +42,12 @@ const users = [
   }
 ];
 
+function AddUserForm() {
+  return (
+    <h1>Add form</h1>
+  );
+}
+
 
 function App() {
   return (
@@ -58,24 +64,24 @@ function App() {
           <EuiPageContentHeader>
             <EuiPageContentHeaderSection>
               <EuiTitle>
-                <h2>Users</h2>
+                <h2>Users:</h2>
               </EuiTitle>
             </EuiPageContentHeaderSection>
           </EuiPageContentHeader>
           <EuiPageContentBody>
 
-            Add user form
+            <AddUserForm></AddUserForm>
             userlist
 
-           
+
               <ul>
-            {users.map( user => <li key={user.id}>
-              {user.name}
-              </li> )}
+              {users.map(user => <li key={user.id}>
+                {user.name}
+              </li>)}
 
             </ul>
 
-           
+
 
 
           </EuiPageContentBody>
