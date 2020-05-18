@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import './App.css';
-import '@elastic/eui/dist/eui_theme_light.css';
+import { AddUserForm } from './AddUserForm';
+import { UsersTable } from './UsersList';
 
 import {
   EuiPage,
@@ -13,7 +13,8 @@ import {
   EuiPageHeaderSection,
   EuiTitle,
 } from '@elastic/eui';
-import { AddUserForm } from './AddUserForm';
+import '@elastic/eui/dist/eui_theme_light.css';
+import './App.css';
 
 
 // id: ID!
@@ -44,9 +45,6 @@ const users = [
 ];
 
 
-
-
-
 function App() {
 
   const [state, setState] = useState({ users });
@@ -56,9 +54,6 @@ function App() {
     const newUser = { ...userDetails, id: state.users.length + 1 }
     setState(previousState => ({ users: [...previousState.users, newUser] }));
   }
-
-
-
 
   return (
     <EuiPage>
@@ -81,18 +76,7 @@ function App() {
           <EuiPageContentBody>
 
             <AddUserForm onSubmit={addUser}></AddUserForm>
-            userlist
-
-
-              <ul>
-              {state.users.map(user => <li key={user.id}>
-                {user.name}
-              </li>)}
-
-            </ul>
-
-
-
+            <UsersTable users={state.users}></UsersTable>
 
           </EuiPageContentBody>
         </EuiPageContent>
