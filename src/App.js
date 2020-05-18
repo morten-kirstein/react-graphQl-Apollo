@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import '@elastic/eui/dist/eui_theme_light.css';
 
@@ -49,10 +49,12 @@ const users = [
 
 function App() {
 
+  const [state, setState] = useState({ users });
+
 
   const addUser = userDetails => {
-    debugger;
-    // Add user to state collection
+    const newUser = { ...userDetails, id: state.users.length + 1 }
+    setState(previousState => ({ users: [...previousState.users, newUser] }));
   }
 
 
@@ -83,7 +85,7 @@ function App() {
 
 
               <ul>
-              {users.map(user => <li key={user.id}>
+              {state.users.map(user => <li key={user.id}>
                 {user.name}
               </li>)}
 

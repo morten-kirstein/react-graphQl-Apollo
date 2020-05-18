@@ -9,20 +9,22 @@ import {
 
 export function AddUserForm(props) {
 
-    const [state, setState] = useState(
-        {
-            name: '',
-            email: ''
-        });
+    const defaultState = {
+        name: '',
+        email: ''
+    }
+
+    const [state, setState] = useState(defaultState);
 
     const handleSubmit = (event) => {
-        debugger;
         event.preventDefault();
         props.onSubmit(state);
+        setState(defaultState);
     }
 
 
-    const updateName = event => {
+
+    const setName = event => {
         setState(prevState => {
             return { ...prevState, name: event.target.value };
         });
@@ -30,7 +32,7 @@ export function AddUserForm(props) {
 
 
 
-    const updateEmail = event => {
+    const setEmail = event => {
         setState(prevState => {
             return { ...prevState, email: event.target.value };
         });
@@ -41,12 +43,14 @@ export function AddUserForm(props) {
         <EuiForm component="form">
 
             <EuiFormRow label="First and last name:" helpText="Please enter your full name">
-                <EuiFieldText onBlur={updateName} />
+                <EuiFieldText
+                    onBlur={setName} />
+
             </EuiFormRow>
 
 
             <EuiFormRow label="Email Adress" helpText="Please enter your email">
-                <EuiFieldText onBlur={updateEmail} />
+                <EuiFieldText onBlur={setEmail} />
             </EuiFormRow>
 
             <EuiSpacer />
