@@ -12,11 +12,9 @@ import {
   EuiPageHeader,
   EuiPageHeaderSection,
   EuiTitle,
-  EuiFlexGroup, EuiFlexItem, EuiSpacer
-
-
-
-
+  EuiFlexGroup,
+  EuiFlexItem,
+  EuiSpacer,
 } from '@elastic/eui';
 import '@elastic/eui/dist/eui_theme_light.css';
 import './App.css';
@@ -103,9 +101,12 @@ function App() {
                 <EuiTitle>
                   <h2>Users:</h2>
                 </EuiTitle>
+                <FilterUsers onFilter={filterUsers}></FilterUsers>
+                <EuiSpacer></EuiSpacer>
                 <UsersList
                   deleteUserClicked={deleteUser}
-                  users={state.users}></UsersList>
+                  users={state.users}>
+                </UsersList>
               </EuiFlexItem>
 
               <EuiFlexItem>
@@ -115,8 +116,6 @@ function App() {
                 <AddUserForm onSubmit={addUser}></AddUserForm>
               </EuiFlexItem>
             </EuiFlexGroup>
-
-            <FilterUsers onFilter={filterUsers}></FilterUsers>
           </EuiPageContentBody>
         </EuiPageContent>
       </EuiPageBody>
