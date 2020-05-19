@@ -18,12 +18,12 @@ export function UsersList({ users, deleteUserClicked }) {
             {users.map(user =>
 
                 <EuiPanel key={user.id}>
-                    {/* Example of inline style conditional witout css ClassName reference */}
+                    <DeleteUserButton user={user} onDeleteUser={deleteUser}></DeleteUserButton>
+
+                    {/* Example of inline style conditional without css ClassName reference */}
                     <span style={{
                         textDecoration: user.status === 'Inactive' ? 'line-through' : 'none'
                     }}>{user.name}</span>
-
-                    <DeleteUserButton user={user} onDeleteUser={deleteUser}></DeleteUserButton>
 
                 </EuiPanel>
             )}

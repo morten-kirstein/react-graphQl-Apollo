@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AddUserForm } from './AddUserForm';
 import { UsersList } from './UsersList';
 import { FilterUsers } from './FilterUsers';
+import { orderBy } from 'lodash';
 
 import {
   EuiPage,
@@ -31,19 +32,19 @@ import './App.css';
 const users = [
   {
     id: 1,
-    name: "faker 1",
+    name: "Magnus",
     email: "fake@fake.dk",
     status: "Active"
   },
   {
     id: 2,
-    name: "faker 2",
+    name: "Masidter jørgen",
     email: "fake@fake.com",
     status: "Active"
   },
   {
     id: 3,
-    name: "faker 3",
+    name: "albert",
     email: "fake@fake.in",
     status: "Inactive"
   }
@@ -55,7 +56,7 @@ function App() {
   const [state, setState] = useState(
     {
       users: users,
-      filteredUsers: [...users]
+      modifiedCollection: [...users]
     }
   );
 
@@ -76,6 +77,24 @@ function App() {
     }
 
     return state.users.filter(user => user.name.includes(filterText));
+  }
+
+  const sortCollection = (direction) => {
+
+
+    const acsCollection = orderBy(
+      state.modifiedCollection,
+      ["name"],
+      [direction]
+    );
+
+    console.log(acsCollection);
+    debugger;
+
+
+    setState(previousState => ({ modifiedCollection: [...acsCollection] }));
+
+
   }
 
 
@@ -105,10 +124,14 @@ function App() {
                     <h2>Users:</h2>
                   </EuiTitle>
                   <FilterUsers onFilter={filterUsers}></FilterUsers>
+
+                  <EuiSpacer></EuiSpacer>
+                  <button onClick={() => sortCollection("desc")}>Sort Desc</button>
+                  <button onClick={() => sortCollection("asc")}>Sort Asc</button>
                   <EuiSpacer></EuiSpacer>
                   <UsersList
                     deleteUserClicked={deleteUser}
-                    users={state.users}>
+                    users={state.modifiedCollection}>
                   </UsersList>
                 </EuiPanel>
               </EuiFlexItem>
