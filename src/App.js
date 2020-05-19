@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { AddUserForm } from './AddUserForm';
-import { UsersTable } from './UsersTable';
 import { UsersList } from './UsersList';
 
 import {
@@ -95,12 +94,12 @@ function App() {
             <AddUserForm onSubmit={addUser}></AddUserForm>
             <FilterUsers onFilter={filterUsers}></FilterUsers>
             <UsersList users={state.users}></UsersList>
-            <UsersTable users={state.users}></UsersTable>
+
 
           </EuiPageContentBody>
         </EuiPageContent>
       </EuiPageBody>
-    </EuiPage>
+    </EuiPage >
   )
 }
 
