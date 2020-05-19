@@ -15,6 +15,7 @@ import {
   EuiFlexGroup,
   EuiFlexItem,
   EuiSpacer,
+  EuiPanel
 } from '@elastic/eui';
 import '@elastic/eui/dist/eui_theme_light.css';
 import './App.css';
@@ -98,23 +99,30 @@ function App() {
 
             <EuiFlexGroup>
               <EuiFlexItem>
-                <EuiTitle>
-                  <h2>Users:</h2>
-                </EuiTitle>
-                <FilterUsers onFilter={filterUsers}></FilterUsers>
-                <EuiSpacer></EuiSpacer>
-                <UsersList
-                  deleteUserClicked={deleteUser}
-                  users={state.users}>
-                </UsersList>
+                {/* Can be converted to seperate component */}
+                <EuiPanel paddingSize="l">
+                  <EuiTitle>
+                    <h2>Users:</h2>
+                  </EuiTitle>
+                  <FilterUsers onFilter={filterUsers}></FilterUsers>
+                  <EuiSpacer></EuiSpacer>
+                  <UsersList
+                    deleteUserClicked={deleteUser}
+                    users={state.users}>
+                  </UsersList>
+                </EuiPanel>
               </EuiFlexItem>
 
+
               <EuiFlexItem>
-                <EuiTitle>
-                  <h2>Add New User:</h2>
-                </EuiTitle>
-                <AddUserForm onSubmit={addUser}></AddUserForm>
+                <EuiPanel paddingSize="l">
+                  <EuiTitle>
+                    <h2>Add New User:</h2>
+                  </EuiTitle>
+                  <AddUserForm onSubmit={addUser}></AddUserForm>
+                </EuiPanel>
               </EuiFlexItem>
+
             </EuiFlexGroup>
           </EuiPageContentBody>
         </EuiPageContent>

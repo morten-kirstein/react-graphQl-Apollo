@@ -1,35 +1,33 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { DeleteUserButton } from './DeleteUserButton';
 
-
+import {
+    EuiPanel
+} from '@elastic/eui';
 
 
 export function UsersList({ users, deleteUserClicked }) {
-
 
     function deleteUser(user) {
         deleteUserClicked(user);
     }
 
-    return (<>
+    return (
+        <Fragment>
 
-        <ul>
             {users.map(user =>
-                <li key={user.id}>
-                    <div>
-                        {/* Example of inline style conditional witout css ClassName reference */}
-                        <span style={{
-                            textDecoration: user.status === 'Inactive' ? 'line-through' : 'none'
-                        }}>{user.name}</span>
-                        <DeleteUserButton user={user} onDeleteUser={deleteUser}></DeleteUserButton>
-                    </div>
 
+                <EuiPanel key={user.id}>
+                    {/* Example of inline style conditional witout css ClassName reference */}
+                    <span style={{
+                        textDecoration: user.status === 'Inactive' ? 'line-through' : 'none'
+                    }}>{user.name}</span>
 
+                    <DeleteUserButton user={user} onDeleteUser={deleteUser}></DeleteUserButton>
 
-
-
-
-                </li>)}
-        </ul>
-    </>);
+                </EuiPanel>
+            )}
+        </Fragment>
+    );
 }
+
