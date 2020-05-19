@@ -1,29 +1,32 @@
 import React from 'react';
+import { DeleteUserButton } from './DeleteUserButton';
 
-export function UsersList({ users, deleteUser }) {
 
 
-    const deleteUserClicked = (user) => {
-        deleteUser(user);
+
+export function UsersList({ users, deleteUserClicked }) {
+
+
+    function deleteUser(user) {
+        deleteUserClicked(user);
     }
-
-    const isUserInactive = status => {
-        return status === 'Inactive';
-    }
-
 
     return (<>
 
         <ul>
             {users.map(user =>
                 <li key={user.id}>
+                    <div>
+                        {/* Example of inline style conditional witout css ClassName reference */}
+                        <span style={{
+                            textDecoration: user.status === 'Inactive' ? 'line-through' : 'none'
+                        }}>{user.name}</span>
+                        <DeleteUserButton user={user} onDeleteUser={deleteUser}></DeleteUserButton>
+                    </div>
 
-                    <button onClick={deleteUserClicked}>x</button>
 
-                    {/* Example of inline style conditional witout css ClassName reference */}
-                    <pre style={{
-                        textDecoration: isUserInactive(user.status) ? 'line-through' : 'none'
-                    }}>{user.name}</pre>
+
+
 
 
                 </li>)}

@@ -12,6 +12,11 @@ import {
   EuiPageHeader,
   EuiPageHeaderSection,
   EuiTitle,
+  EuiFlexGroup, EuiFlexItem, EuiSpacer
+
+
+
+
 } from '@elastic/eui';
 import '@elastic/eui/dist/eui_theme_light.css';
 import './App.css';
@@ -61,6 +66,10 @@ function App() {
     setState(previousState => ({ users: [...previousState.users, newUser] }));
   }
 
+  const deleteUser = user => {
+    console.log(user);
+  }
+
   const filterUsers = filterText => {
 
     if (!filterText) {
@@ -84,18 +93,30 @@ function App() {
         <EuiPageContent>
           <EuiPageContentHeader>
             <EuiPageContentHeaderSection>
-              <EuiTitle>
-                <h2>Users:</h2>
-              </EuiTitle>
+
             </EuiPageContentHeaderSection>
           </EuiPageContentHeader>
           <EuiPageContentBody>
 
-            <AddUserForm onSubmit={addUser}></AddUserForm>
+            <EuiFlexGroup>
+              <EuiFlexItem>
+                <EuiTitle>
+                  <h2>Users:</h2>
+                </EuiTitle>
+                <UsersList
+                  deleteUserClicked={deleteUser}
+                  users={state.users}></UsersList>
+              </EuiFlexItem>
+
+              <EuiFlexItem>
+                <EuiTitle>
+                  <h2>Add New User:</h2>
+                </EuiTitle>
+                <AddUserForm onSubmit={addUser}></AddUserForm>
+              </EuiFlexItem>
+            </EuiFlexGroup>
+
             <FilterUsers onFilter={filterUsers}></FilterUsers>
-            <UsersList users={state.users}></UsersList>
-
-
           </EuiPageContentBody>
         </EuiPageContent>
       </EuiPageBody>
