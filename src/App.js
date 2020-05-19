@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AddUserForm } from './AddUserForm';
 import { UsersList } from './UsersList';
+import { FilterUsers } from './FilterUsers';
 
 import {
   EuiPage,
@@ -19,7 +20,6 @@ import {
 } from '@elastic/eui';
 import '@elastic/eui/dist/eui_theme_light.css';
 import './App.css';
-import { FilterUsers } from './FilterUsers';
 
 
 // id: ID!
