@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import UsersList from './UsersList';
 import SortingPanel from "./SortingPanel";
 import AddUserForm from './AddUserForm';
@@ -46,8 +46,18 @@ const users_data = [
 function App() {
 
   const [users, setUsers] = useState([...users_data]);
-  const [usersList, setUsersList] = useState();
+  const [usersList, setUsersList] = useState(users);
 
+
+  useEffect(() => {
+    // get Initial data from GraphQl and Apollo
+    console.log('App render');
+
+
+  });
+
+
+  // To be replaced
   const [state, setState] = useState(
     {
       users: users,
