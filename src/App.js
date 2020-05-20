@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import UsersList from './UsersList';
 import SortingPanel from "./SortingPanel";
-import { AddUserForm } from './AddUserForm';
+import AddUserForm from './AddUserForm';
 import { FilterUsers } from './FilterUsers';
 import { orderBy } from 'lodash';
 

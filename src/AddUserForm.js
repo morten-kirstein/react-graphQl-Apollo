@@ -7,7 +7,7 @@ import {
     EuiSpacer
 } from '@elastic/eui';
 
-export function AddUserForm(props) {
+const AddUserForm = (props) => {
 
     const defaultState = {
         name: '',
@@ -64,3 +64,6 @@ export function AddUserForm(props) {
 
         </EuiForm >);
 }
+
+
+export default AddUserForm;
