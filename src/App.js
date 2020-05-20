@@ -51,10 +51,8 @@ function App() {
 
   useEffect(() => {
     // get Initial data from GraphQl and Apollo
-    console.log('App render');
-
-
-  });
+    setUsersList(users);
+  }, [users]);
 
 
   // To be replaced
@@ -77,22 +75,21 @@ function App() {
 
   const filterUsers = filterText => {
 
-    if (!filterText) {
-      return state.users;
-    }
+    // if (!filterText) {
+    //   return state.users;
+    // }
 
-    return state.users.filter(user => user.name.includes(filterText));
+    // return state.users.filter(user => user.name.includes(filterText));
   }
 
   const sortUsersByName = direction => {
 
-    const acsCollection = orderBy(
-      state.modifiedCollection,
-      ["name"],
+    const sortedCollection = orderBy(
+      usersList, [user => user.name.toLowerCase()],
       [direction]
     );
 
-    setState(previousState => ({ modifiedCollection: [...acsCollection] }));
+    setUsersList([...sortedCollection]);
   }
 
 
@@ -130,7 +127,7 @@ function App() {
                   <EuiSpacer></EuiSpacer>
                   <UsersList
                     deleteUserClicked={deleteUser}
-                    users={state.modifiedCollection}>
+                    users={usersList}>
                   </UsersList>
                 </EuiPanel>
               </EuiFlexItem>
