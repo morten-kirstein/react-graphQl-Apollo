@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { AddUserForm } from './AddUserForm';
 import UsersList from './UsersList';
+import SortingPanel from "./SortingPanel";
+import { AddUserForm } from './AddUserForm';
 import { FilterUsers } from './FilterUsers';
 import { orderBy } from 'lodash';
 
@@ -17,7 +18,8 @@ import {
   EuiFlexGroup,
   EuiFlexItem,
   EuiSpacer,
-  EuiPanel
+  EuiPanel,
+  EuiButtonIcon
 } from '@elastic/eui';
 import '@elastic/eui/dist/eui_theme_light.css';
 import './App.css';
@@ -50,7 +52,6 @@ const users = [
   }
 ];
 
-
 function App() {
 
   const [state, setState] = useState(
@@ -79,8 +80,7 @@ function App() {
     return state.users.filter(user => user.name.includes(filterText));
   }
 
-  const sortCollection = (direction) => {
-
+  const sortUsersByName = direction => {
 
     const acsCollection = orderBy(
       state.modifiedCollection,
@@ -88,13 +88,7 @@ function App() {
       [direction]
     );
 
-    console.log(acsCollection);
-    debugger;
-
-
     setState(previousState => ({ modifiedCollection: [...acsCollection] }));
-
-
   }
 
 
@@ -126,8 +120,9 @@ function App() {
                   <FilterUsers onFilter={filterUsers}></FilterUsers>
 
                   <EuiSpacer></EuiSpacer>
-                  <button onClick={() => sortCollection("desc")}>Sort Desc</button>
-                  <button onClick={() => sortCollection("asc")}>Sort Asc</button>
+
+                  <SortingPanel onClickSortingDirection={sortUsersByName}></SortingPanel>
+
                   <EuiSpacer></EuiSpacer>
                   <UsersList
                     deleteUserClicked={deleteUser}

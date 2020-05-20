@@ -1,7 +1,8 @@
 import React from 'react';
 
 import {
-    EuiButton,
+    // EuiButtonIcon,
+    EuiButton
 } from '@elastic/eui';
 
 
@@ -13,6 +14,10 @@ export function DeleteUserButton(props) {
     }
 
     return (
+        // <EuiButtonIcon
+        //     onClick={handleClick}
+        //     iconType={'trash'}
+        // />
         <EuiButton onClick={handleClick} type="trash" size={'s'}>X</EuiButton>
 
     )
