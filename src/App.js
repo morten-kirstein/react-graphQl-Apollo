@@ -47,21 +47,13 @@ function App() {
 
   const [users, setUsers] = useState([...users_data]);
   const [usersList, setUsersList] = useState(users);
+  const [filterText, setFilterText] = useState('');
 
 
   useEffect(() => {
     // get Initial data from GraphQl and Apollo
     setUsersList(users);
   }, [users]);
-
-
-  // To be replaced
-  const [state, setState] = useState(
-    {
-      users: users,
-      modifiedCollection: [...users_data]
-    }
-  );
 
 
   const addUser = userDetails => {
@@ -118,7 +110,7 @@ function App() {
                   <EuiTitle>
                     <h2>Users:</h2>
                   </EuiTitle>
-                  <FilterUsers onFilter={filterUsers}></FilterUsers>
+                  <FilterUsers onFilter={filter => { setFilterText(filter) }}></FilterUsers>
 
                   <EuiSpacer></EuiSpacer>
 
@@ -126,6 +118,7 @@ function App() {
 
                   <EuiSpacer></EuiSpacer>
                   <UsersList
+                    filter={filterText}
                     deleteUserClicked={deleteUser}
                     users={usersList}>
                   </UsersList>

@@ -6,7 +6,7 @@ import {
 } from '@elastic/eui';
 
 
-const UsersList = ({ users, deleteUserClicked }) => {
+const UsersList = ({ users, filter, deleteUserClicked }) => {
 
     function deleteUser(user) {
         deleteUserClicked(user);
@@ -15,7 +15,7 @@ const UsersList = ({ users, deleteUserClicked }) => {
     return (
         <Fragment>
 
-            {users.map(user =>
+            {users.filter(x => x.name.toLowerCase().includes(filter.toLowerCase())).map(user =>
 
                 <EuiPanel key={user.id}>
                     <DeleteUserButton user={user} onDeleteUser={deleteUser}></DeleteUserButton>
