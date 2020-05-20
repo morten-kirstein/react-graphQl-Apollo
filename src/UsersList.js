@@ -6,7 +6,7 @@ import {
 } from '@elastic/eui';
 
 
-export function UsersList({ users, deleteUserClicked }) {
+const UsersList = ({ users, deleteUserClicked }) => {
 
     function deleteUser(user) {
         deleteUserClicked(user);
@@ -30,4 +30,6 @@ export function UsersList({ users, deleteUserClicked }) {
         </Fragment>
     );
 }
+
+export default UsersList;
 

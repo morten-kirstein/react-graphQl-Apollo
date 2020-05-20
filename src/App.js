@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AddUserForm } from './AddUserForm';
-import { UsersList } from './UsersList';
+import UsersList from './UsersList';
 import { FilterUsers } from './FilterUsers';
 import { orderBy } from 'lodash';
 
