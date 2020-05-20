@@ -21,7 +21,6 @@ import {
   EuiPanel,
 } from '@elastic/eui';
 import '@elastic/eui/dist/eui_theme_light.css';
-import './App.css';
 
 const users_data = [
   {
