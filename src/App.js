@@ -19,17 +19,9 @@ import {
   EuiFlexItem,
   EuiSpacer,
   EuiPanel,
-  EuiButtonIcon
 } from '@elastic/eui';
 import '@elastic/eui/dist/eui_theme_light.css';
 import './App.css';
-
-
-// id: ID!
-// name: String @fake(type:fullName)
-// email: String @fake(type:email)
-// status: String @examples(values: ["Active", "Inactive"])
-
 
 const users = [
   {
