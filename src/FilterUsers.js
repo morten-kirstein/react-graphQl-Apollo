@@ -15,7 +15,7 @@ export function FilterUsers(props) {
 
     return (
         <EuiForm component="form">
-            <EuiFormRow label="Search/Filter users" helpText="Filter users by name">
+            <EuiFormRow label="Search for user">
                 <EuiFieldText
                     onChange={handleFilter} />
             </EuiFormRow>
