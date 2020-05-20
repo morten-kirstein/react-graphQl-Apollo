@@ -22,6 +22,20 @@ import {
 } from '@elastic/eui';
 import '@elastic/eui/dist/eui_theme_light.css';
 
+import gql from 'graphql-tag';
+import { useQuery } from '@apollo/react-hooks';
+
+const query = gql`
+  query allUsers {
+    allUsers {
+      id
+      name,
+      email,
+      status
+    }
+  }
+`;
+
 const users_data = [
   {
     id: 1,
@@ -45,15 +59,18 @@ const users_data = [
 
 function App() {
 
+  const { loading, data } = useQuery(query)
+
   const [users, setUsers] = useState([...users_data]);
   const [usersList, setUsersList] = useState(users);
   const [filterText, setFilterText] = useState('');
 
 
   useEffect(() => {
-    // get Initial data from GraphQl and Apollo
+    // get Initial data from GraphQl with Apollo
+
     setUsersList(users);
-  }, [users]);
+  }, [users, data]);
 
 
   const addUser = userDetails => {
@@ -63,15 +80,6 @@ function App() {
 
   const deleteUser = user => {
     console.log(user);
-  }
-
-  const filterUsers = filterText => {
-
-    // if (!filterText) {
-    //   return state.users;
-    // }
-
-    // return state.users.filter(user => user.name.includes(filterText));
   }
 
   const sortUsersByName = direction => {
@@ -84,7 +92,7 @@ function App() {
     setUsersList([...sortedCollection]);
   }
 
-
+  if (loading) return <h2>Loading</h2>
   return (
     <EuiPage>
       <EuiPageBody component="div">
