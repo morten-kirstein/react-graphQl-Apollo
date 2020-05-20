@@ -23,7 +23,7 @@ import {
 import '@elastic/eui/dist/eui_theme_light.css';
 import './App.css';
 
-const users = [
+const users_data = [
   {
     id: 1,
     name: "Magnus",
@@ -46,17 +46,20 @@ const users = [
 
 function App() {
 
+  const [users, setUsers] = useState([...users_data]);
+  const [usersList, setUsersList] = useState();
+
   const [state, setState] = useState(
     {
       users: users,
-      modifiedCollection: [...users]
+      modifiedCollection: [...users_data]
     }
   );
 
 
   const addUser = userDetails => {
-    const newUser = { ...userDetails, id: state.users.length + 1 }
-    setState(previousState => ({ users: [...previousState.users, newUser] }));
+    const newUser = Object.assign(userDetails, { status: 'Active', id: users.length + 1 });
+    setUsers(previousState => ([...previousState, newUser]));
   }
 
   const deleteUser = user => {
