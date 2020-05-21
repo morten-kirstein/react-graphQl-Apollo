@@ -23,11 +23,36 @@ import {
 import '@elastic/eui/dist/eui_theme_light.css';
 
 import gql from 'graphql-tag';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+
+
 
 const GET_ALL_USERS = gql`
   query allUsers {
     allUsers {
+      id
+      name,
+      email,
+      status
+    }
+  }
+`;
+
+
+const ADD_USER = gql`
+  mutation addUser {
+    allUsers {
+      id
+      name,
+      email,
+      status
+    }
+  }
+`;
+
+const REMOVE_USER = gql`
+  mutation removeUser($id: ID!){
+    removeUser(id: $id) {
       id
       name,
       email,
@@ -60,9 +85,9 @@ function App() {
     setUsers(previousState => ([...previousState, newUser]));
   }
 
-  const deleteUser = user => {
-    console.log(user);
-  }
+
+
+  const [deleteUser] = useMutation(REMOVE_USER);
 
   const sortUsersByName = direction => {
 
@@ -109,7 +134,7 @@ function App() {
                   <EuiSpacer></EuiSpacer>
                   <UsersList
                     filter={filterText}
-                    deleteUserClicked={deleteUser}
+                    deleteUserClicked={user => deleteUser({ variables: { id: user.id } })}
                     users={users}>
                   </UsersList>
                 </EuiPanel>
