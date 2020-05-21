@@ -65,7 +65,7 @@ const REMOVE_USER = gql`
 
 function App() {
 
-  const { loading, data } = useQuery(GET_ALL_USERS)
+  const { loading, error, data } = useQuery(GET_ALL_USERS)
 
   const [users, setUsers] = useState([]);
   const [filterText, setFilterText] = useState('');
@@ -86,8 +86,7 @@ function App() {
   }
 
 
-
-  const [deleteUser] = useMutation(REMOVE_USER);
+  const [deleteUser] = useMutation(REMOVE_USER, { refetchQueries: mutationResault => [{ query: GET_ALL_USERS }] });
 
   const sortUsersByName = direction => {
 
@@ -100,6 +99,7 @@ function App() {
   }
 
   if (loading) return <h2>Loading</h2>
+  if (error) return <h2>Error getting data</h2>
   return (
     <EuiPage>
       <EuiPageBody component="div">
