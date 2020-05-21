@@ -7,36 +7,20 @@ import {
     EuiSpacer
 } from '@elastic/eui';
 
-const AddUserForm = (props) => {
+const AddUserForm = ({ onSubmit }) => {
 
-    const defaultState = {
-        name: '',
-        email: ''
-    }
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
 
-    const [state, setState] = useState(defaultState);
-
-    // Todo - reset form if submitted
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.onSubmit(state);
-        setState(defaultState);
+        onSubmit({ name, email });
+        resetForm(setName, setEmail);
     }
 
-
-
-    const setName = event => {
-        setState(prevState => {
-            return { ...prevState, name: event.target.value };
-        });
-    }
-
-
-
-    const setEmail = event => {
-        setState(prevState => {
-            return { ...prevState, email: event.target.value };
-        });
+    const resetForm = () => {
+        setName('');
+        setEmail('');
     }
 
     return (
@@ -46,13 +30,16 @@ const AddUserForm = (props) => {
             {/* TODO - validation  */}
             <EuiFormRow label="First and last name:" helpText="Please enter your full name">
                 <EuiFieldText
-                    onBlur={setName} />
+                    value={name}
+                    onChange={e => setName(e.target.value)} />
             </EuiFormRow>
 
 
             {/* TODO Validation */}
             <EuiFormRow label="Email Adress" helpText="Please enter your email">
-                <EuiFieldText onBlur={setEmail} />
+                <EuiFieldText
+                    value={email}
+                    onChange={e => setEmail(e.target.value)} />
             </EuiFormRow>
 
             <EuiSpacer />
@@ -67,3 +54,5 @@ const AddUserForm = (props) => {
 
 
 export default AddUserForm;
+
+

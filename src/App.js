@@ -23,9 +23,11 @@ import {
 import '@elastic/eui/dist/eui_theme_light.css';
 
 import gql from 'graphql-tag';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 
-const query = gql`
+
+
+const GET_ALL_USERS = gql`
   query allUsers {
     allUsers {
       id
@@ -36,33 +38,36 @@ const query = gql`
   }
 `;
 
-const users_data = [
-  {
-    id: 1,
-    name: "Magnus",
-    email: "fake@fake.dk",
-    status: "Active"
-  },
-  {
-    id: 2,
-    name: "Masidter jørgen",
-    email: "fake@fake.com",
-    status: "Active"
-  },
-  {
-    id: 3,
-    name: "albert",
-    email: "fake@fake.in",
-    status: "Inactive"
+
+const ADD_USER = gql`
+  mutation addUser {
+    allUsers {
+      id
+      name,
+      email,
+      status
+    }
   }
-];
+`;
+
+const REMOVE_USER = gql`
+  mutation removeUser($id: ID!){
+    removeUser(id: $id) {
+      id
+      name,
+      email,
+      status
+    }
+  }
+`;
+
+
 
 function App() {
 
-  const { loading, data } = useQuery(query)
+  const { loading, error, data } = useQuery(GET_ALL_USERS)
 
   const [users, setUsers] = useState([]);
-  const [usersList, setUsersList] = useState([]);
   const [filterText, setFilterText] = useState('');
 
 
@@ -72,8 +77,6 @@ function App() {
     if (data) {
       setUsers([...data.allUsers]);
     }
-    // setUsersList(users);
-
   }, [data]);
 
 
@@ -82,9 +85,8 @@ function App() {
     setUsers(previousState => ([...previousState, newUser]));
   }
 
-  const deleteUser = user => {
-    console.log(user);
-  }
+
+  const [deleteUser] = useMutation(REMOVE_USER, { refetchQueries: mutationResault => [{ query: GET_ALL_USERS }] });
 
   const sortUsersByName = direction => {
 
@@ -97,6 +99,7 @@ function App() {
   }
 
   if (loading) return <h2>Loading</h2>
+  if (error) return <h2>Error getting data</h2>
   return (
     <EuiPage>
       <EuiPageBody component="div">
@@ -131,7 +134,7 @@ function App() {
                   <EuiSpacer></EuiSpacer>
                   <UsersList
                     filter={filterText}
-                    deleteUserClicked={deleteUser}
+                    deleteUserClicked={user => deleteUser({ variables: { id: user.id } })}
                     users={users}>
                   </UsersList>
                 </EuiPanel>

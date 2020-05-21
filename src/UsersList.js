@@ -17,13 +17,21 @@ const UsersList = ({ users, filter, deleteUserClicked }) => {
 
             {users.filter(x => x.name.toLowerCase().includes(filter.toLowerCase())).map(user =>
 
-                <EuiPanel key={user.id}>
-                    <DeleteUserButton user={user} onDeleteUser={deleteUser}></DeleteUserButton>
 
-                    {/* Example of inline style conditional without css ClassName reference */}
-                    <span style={{
-                        textDecoration: user.status === 'Inactive' ? 'line-through' : 'none'
-                    }}>{user.name}</span>
+                <EuiPanel key={user.id} style={user.status === 'Inactive' ? { backgroundColor: '#f0f1ef', color: '#959392' } : null}   >
+
+
+                    <div className={'flexPanel'} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+
+                        <div style={{
+                            textDecoration: user.status === 'Inactive' ? 'line-through' : 'none'
+                        }}>{user.name}</div>
+
+                        <div style={{ marginLeft: 'auto' }}>
+                            <DeleteUserButton user={user} onDeleteUser={deleteUser}></DeleteUserButton>
+                        </div>
+                    </div>
+
 
                 </EuiPanel>
             )}
@@ -32,4 +40,3 @@ const UsersList = ({ users, filter, deleteUserClicked }) => {
 }
 
 export default UsersList;
-
