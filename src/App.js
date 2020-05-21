@@ -72,9 +72,9 @@ function App() {
     if (data) {
       setUsers([...data.allUsers]);
     }
-    setUsersList(users);
+    // setUsersList(users);
 
-  }, [users, data]);
+  }, [data]);
 
 
   const addUser = userDetails => {
@@ -89,11 +89,11 @@ function App() {
   const sortUsersByName = direction => {
 
     const sortedCollection = orderBy(
-      usersList, [user => user.name.toLowerCase()],
+      users, [user => user.name.toLowerCase()],
       [direction]
     );
 
-    setUsersList([...sortedCollection]);
+    setUsers([...sortedCollection]);
   }
 
   if (loading) return <h2>Loading</h2>
@@ -132,7 +132,7 @@ function App() {
                   <UsersList
                     filter={filterText}
                     deleteUserClicked={deleteUser}
-                    users={usersList}>
+                    users={users}>
                   </UsersList>
                 </EuiPanel>
               </EuiFlexItem>
