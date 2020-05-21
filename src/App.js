@@ -36,33 +36,13 @@ const query = gql`
   }
 `;
 
-const users_data = [
-  {
-    id: 1,
-    name: "Magnus",
-    email: "fake@fake.dk",
-    status: "Active"
-  },
-  {
-    id: 2,
-    name: "Masidter jørgen",
-    email: "fake@fake.com",
-    status: "Active"
-  },
-  {
-    id: 3,
-    name: "albert",
-    email: "fake@fake.in",
-    status: "Inactive"
-  }
-];
+
 
 function App() {
 
   const { loading, data } = useQuery(query)
 
   const [users, setUsers] = useState([]);
-  const [usersList, setUsersList] = useState([]);
   const [filterText, setFilterText] = useState('');
 
 
@@ -72,8 +52,6 @@ function App() {
     if (data) {
       setUsers([...data.allUsers]);
     }
-    // setUsersList(users);
-
   }, [data]);
 
 
