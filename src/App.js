@@ -61,15 +61,19 @@ function App() {
 
   const { loading, data } = useQuery(query)
 
-  const [users, setUsers] = useState([...users_data]);
-  const [usersList, setUsersList] = useState(users);
+  const [users, setUsers] = useState([]);
+  const [usersList, setUsersList] = useState([]);
   const [filterText, setFilterText] = useState('');
 
 
   useEffect(() => {
     // get Initial data from GraphQl with Apollo
 
+    if (data) {
+      setUsers([...data.allUsers]);
+    }
     setUsersList(users);
+
   }, [users, data]);
 
 
