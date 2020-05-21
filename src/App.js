@@ -103,7 +103,7 @@ function App() {
         <EuiPageHeader>
           <EuiPageHeaderSection>
             <EuiTitle size="l">
-              <h1>Accuranker - test</h1>
+              <h1>React - GraphQL - Apollo</h1>
             </EuiTitle>
           </EuiPageHeaderSection>
         </EuiPageHeader>
