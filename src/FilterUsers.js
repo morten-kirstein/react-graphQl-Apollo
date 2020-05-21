@@ -6,11 +6,11 @@ import {
     EuiFieldText
 } from '@elastic/eui';
 
-export function FilterUsers(props) {
+const FilterUsers = ({ onFilter }) => {
 
     const handleFilter = event => {
         const filterText = event.target.value;
-        props.onFilter(filterText);
+        onFilter(filterText);
     }
 
     return (
@@ -22,3 +22,5 @@ export function FilterUsers(props) {
         </EuiForm >
     );
 }
+
+export default FilterUsers;
