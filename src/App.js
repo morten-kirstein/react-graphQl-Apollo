@@ -40,8 +40,8 @@ const GET_ALL_USERS = gql`
 
 
 const ADD_USER = gql`
-  mutation addUser {
-    allUsers {
+  mutation addUser($name: String!, $email: String!, $status: String!) {
+    addUser(name: $name, email: $email, status: $status) {
       id
       name,
       email,
@@ -71,6 +71,7 @@ function App() {
   const [filterText, setFilterText] = useState('');
 
   const [deleteUser] = useMutation(REMOVE_USER, { refetchQueries: mutationResault => [{ query: GET_ALL_USERS }] });
+  const [addNewUser] = useMutation(ADD_USER, { refetchQueries: mutationResault => [{ query: GET_ALL_USERS }] });
 
   useEffect(() => {
     if (data) {
@@ -85,9 +86,7 @@ function App() {
   }
 
 
-
   const sortUsersByName = direction => {
-
     const sortedCollection = orderBy(
       users, [user => user.name.toLowerCase()],
       [direction]
@@ -143,7 +142,7 @@ function App() {
                   <EuiTitle>
                     <h2>Add new user:</h2>
                   </EuiTitle>
-                  <AddUserForm onSubmit={addUser}></AddUserForm>
+                  <AddUserForm onSubmit={(user) => addNewUser({ variables: { name: user.name, email: user.email, status: 'Active' } })}></AddUserForm>
                 </EuiPanel>
               </EuiFlexItem>
 
