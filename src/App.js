@@ -65,15 +65,14 @@ const REMOVE_USER = gql`
 
 function App() {
 
-  const { loading, error, data } = useQuery(GET_ALL_USERS)
 
+  const { loading, error, data } = useQuery(GET_ALL_USERS)
   const [users, setUsers] = useState([]);
   const [filterText, setFilterText] = useState('');
 
+  const [deleteUser] = useMutation(REMOVE_USER, { refetchQueries: mutationResault => [{ query: GET_ALL_USERS }] });
 
   useEffect(() => {
-    // get Initial data from GraphQl with Apollo
-
     if (data) {
       setUsers([...data.allUsers]);
     }
@@ -86,7 +85,6 @@ function App() {
   }
 
 
-  const [deleteUser] = useMutation(REMOVE_USER, { refetchQueries: mutationResault => [{ query: GET_ALL_USERS }] });
 
   const sortUsersByName = direction => {
 
@@ -120,7 +118,6 @@ function App() {
 
             <EuiFlexGroup>
               <EuiFlexItem>
-                {/* Can be converted to seperate component */}
                 <EuiPanel paddingSize="l">
                   <EuiTitle>
                     <h2>Users:</h2>
@@ -144,7 +141,7 @@ function App() {
               <EuiFlexItem>
                 <EuiPanel paddingSize="l">
                   <EuiTitle>
-                    <h2>Add New User:</h2>
+                    <h2>Add new user:</h2>
                   </EuiTitle>
                   <AddUserForm onSubmit={addUser}></AddUserForm>
                 </EuiPanel>
