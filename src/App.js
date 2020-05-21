@@ -25,7 +25,7 @@ import '@elastic/eui/dist/eui_theme_light.css';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 
-const query = gql`
+const GET_ALL_USERS = gql`
   query allUsers {
     allUsers {
       id
@@ -40,7 +40,7 @@ const query = gql`
 
 function App() {
 
-  const { loading, data } = useQuery(query)
+  const { loading, data } = useQuery(GET_ALL_USERS)
 
   const [users, setUsers] = useState([]);
   const [filterText, setFilterText] = useState('');
