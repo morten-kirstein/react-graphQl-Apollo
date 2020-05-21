@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import UsersList from './UsersList';
 import SortingPanel from "./SortingPanel";
 import AddUserForm from './AddUserForm';
-import { FilterUsers } from './FilterUsers';
+import FilterUsers from './FilterUsers';
 import { orderBy } from 'lodash';
 
 import {
@@ -24,8 +24,6 @@ import '@elastic/eui/dist/eui_theme_light.css';
 
 import gql from 'graphql-tag';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-
-
 
 const GET_ALL_USERS = gql`
   query allUsers {
@@ -70,22 +68,38 @@ function App() {
   const [users, setUsers] = useState([]);
   const [filterText, setFilterText] = useState('');
 
-  const [deleteUser] = useMutation(REMOVE_USER, { refetchQueries: mutationResault => [{ query: GET_ALL_USERS }] });
-  const [addNewUser] = useMutation(ADD_USER, { refetchQueries: mutationResault => [{ query: GET_ALL_USERS }] });
+  // This line gives the new collection from the server.
+  // const [deleteUser] = useMutation(REMOVE_USER, { refetchQueries: mutationResault => { debugger; console.log(mutationResault) } });
+  const [deleteUser] = useMutation(REMOVE_USER, { refetchQueries: mutationResault => { removeUserFromCollection(mutationResault.data.removeUser) } });
+
+
+  // This line gives the new collection from the server.
+  // const [addNewUser] = useMutation(ADD_USER, { refetchQueries: mutationResault => [{ query: GET_ALL_USERS }] });
+  const [addNewUser] = useMutation(ADD_USER, { refetchQueries: mutationResault => { addUserToCollection(mutationResault.data.addUser) } });
 
   useEffect(() => {
     if (data) {
       setUsers([...data.allUsers]);
     }
-  }, [data]);
+
+    return () => { }
+
+  }, [loading, data]);
 
 
-  const addUser = userDetails => {
-    const newUser = Object.assign(userDetails, { status: 'Active', id: users.length + 1 });
-    setUsers(previousState => ([...previousState, newUser]));
+  const addUserToCollection = newUserDetails => {
+    setUsers(previousState => ([...previousState, newUserDetails]));
+  }
+
+  // The Wrong user is returned. Could be the GraphQL-faker API?
+  const removeUserFromCollection = userDetails => {
+
+    const collection = users.filter(user => user.id !== userDetails.id);
+    setUsers([...collection]);
   }
 
 
+  // Example of implementation of 3rd Party tool. The 3rd party Library must be in seperate file
   const sortUsersByName = direction => {
     const sortedCollection = orderBy(
       users, [user => user.name.toLowerCase()],
