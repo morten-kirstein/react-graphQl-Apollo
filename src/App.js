@@ -6,6 +6,7 @@ import FilterUsers from './FilterUsers';
 
 import utils from './utils';
 import { useQuery, useMutation } from '@apollo/react-hooks';
+
 import { REMOVE_USER, ADD_USER, GET_ALL_USERS } from "./gql-query";
 
 import '@elastic/eui/dist/eui_theme_light.css';
@@ -60,7 +61,6 @@ function App() {
 
   // The Wrong user is returned. Could be the GraphQL-faker API?
   const removeUserFromCollection = userDetails => {
-
     const collection = users.filter(user => user.id !== userDetails.id);
     setUsers([...collection]);
   }
