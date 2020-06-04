@@ -24,13 +24,7 @@ import {
   EuiPanel,
 } from '@elastic/eui';
 
-
-
-
-
-
 function App() {
-
 
   const { loading, error, data } = useQuery(GET_ALL_USERS)
   const [users, setUsers] = useState([]);
@@ -39,16 +33,15 @@ function App() {
   // This line gives the new collection from the server.
   // const [deleteUser] = useMutation(REMOVE_USER, { refetchQueries: mutationResault => [{ query: GET_ALL_USERS }] });
   const [deleteUser] = useMutation(REMOVE_USER, {
-    refetchQueries: mutationResault => {
-      debugger;
-      removeUserFromCollection(mutationResault.data.removeUser)
-    }
+    refetchQueries: mutationResault => removeUserFromCollection(mutationResault.data.removeUser)
   });
 
 
   // This line gives the new collection from the server.
   // const [addNewUser] = useMutation(ADD_USER, { refetchQueries: mutationResault => [{ query: GET_ALL_USERS }] });
-  const [addNewUser] = useMutation(ADD_USER, { refetchQueries: mutationResault => { addUserToCollection(mutationResault.data.addUser) } });
+  const [addNewUser] = useMutation(ADD_USER, {
+    refetchQueries: mutationResault => addUserToCollection(mutationResault.data.addUser)
+  });
 
   useEffect(() => {
     if (data) {
