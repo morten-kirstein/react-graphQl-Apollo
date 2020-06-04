@@ -4,7 +4,10 @@ import SortingPanel from "./SortingPanel";
 import AddUserForm from './AddUserForm';
 import FilterUsers from './FilterUsers';
 import { orderBy } from 'lodash';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import { REMOVE_USER, ADD_USER, GET_ALL_USERS } from "./gql-query";
 
+import '@elastic/eui/dist/eui_theme_light.css';
 import {
   EuiPage,
   EuiPageBody,
@@ -20,44 +23,9 @@ import {
   EuiSpacer,
   EuiPanel,
 } from '@elastic/eui';
-import '@elastic/eui/dist/eui_theme_light.css';
-
-import gql from 'graphql-tag';
-import { useQuery, useMutation } from '@apollo/react-hooks';
-
-const GET_ALL_USERS = gql`
-  query allUsers {
-    allUsers {
-      id
-      name,
-      email,
-      status
-    }
-  }
-`;
 
 
-const ADD_USER = gql`
-  mutation addUser($name: String!, $email: String!, $status: String!) {
-    addUser(name: $name, email: $email, status: $status) {
-      id
-      name,
-      email,
-      status
-    }
-  }
-`;
 
-const REMOVE_USER = gql`
-  mutation removeUser($id: ID!){
-    removeUser(id: $id) {
-      id
-      name,
-      email,
-      status
-    }
-  }
-`;
 
 
 
@@ -69,8 +37,13 @@ function App() {
   const [filterText, setFilterText] = useState('');
 
   // This line gives the new collection from the server.
-  // const [deleteUser] = useMutation(REMOVE_USER, { refetchQueries: mutationResault => { debugger; console.log(mutationResault) } });
-  const [deleteUser] = useMutation(REMOVE_USER, { refetchQueries: mutationResault => { removeUserFromCollection(mutationResault.data.removeUser) } });
+  // const [deleteUser] = useMutation(REMOVE_USER, { refetchQueries: mutationResault => [{ query: GET_ALL_USERS }] });
+  const [deleteUser] = useMutation(REMOVE_USER, {
+    refetchQueries: mutationResault => {
+      debugger;
+      removeUserFromCollection(mutationResault.data.removeUser)
+    }
+  });
 
 
   // This line gives the new collection from the server.
