@@ -3,7 +3,8 @@ import UsersList from './UsersList';
 import SortingPanel from "./SortingPanel";
 import AddUserForm from './AddUserForm';
 import FilterUsers from './FilterUsers';
-import { orderBy } from 'lodash';
+
+import utils from './utils';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { REMOVE_USER, ADD_USER, GET_ALL_USERS } from "./gql-query";
 
@@ -64,14 +65,8 @@ function App() {
     setUsers([...collection]);
   }
 
-
-  // Example of implementation of 3rd Party tool. The 3rd party Library must be in seperate file
   const sortUsersByName = direction => {
-    const sortedCollection = orderBy(
-      users, [user => user.name.toLowerCase()],
-      [direction]
-    );
-
+    const sortedCollection = utils.sortCollectionByKey(direction, users, "name");
     setUsers([...sortedCollection]);
   }
 
