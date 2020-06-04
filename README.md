@@ -1,8 +1,8 @@
 This project is a demo application that uses the following tech stack
 
  - React (https://github.com/facebook/create-react-app)
- - Apollo (https://github.com/facebook/create-react-app)
- - GraphQL (https://github.com/facebook/create-react-app)
+ - Apollo (https://www.apollographql.com/)
+ - GraphQL (https://graphql.org/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

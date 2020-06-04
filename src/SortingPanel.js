@@ -1,24 +1,21 @@
 
 import React from "react";
+import SortingButton from './SortingButton';
 
 import {
     EuiFlexGroup,
     EuiFlexItem,
-    EuiButton,
 } from '@elastic/eui';
 
 
 const SortingPanel = ({ onClickSortingDirection }) => {
 
-    const directions = ['asc', 'desc'];
     return (
         <EuiFlexGroup gutterSize="l" alignItems="center">
-
-            {directions.map(direction => {
-                return <EuiFlexItem grow={false} key={direction}>
-                    <EuiButton onClick={() => { onClickSortingDirection(direction) }}>Sort by {direction}</EuiButton>
-                </EuiFlexItem>
-            })}
+            <EuiFlexItem grow={true}>
+                <SortingButton onClick={onClickSortingDirection} direction={'asc'}></SortingButton>
+                <SortingButton onClick={onClickSortingDirection} direction={'desc'}></SortingButton>
+            </EuiFlexItem>
         </EuiFlexGroup>
     );
 }

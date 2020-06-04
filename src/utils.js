@@ -1,6 +1,5 @@
 import { orderBy } from 'lodash';
 
-
 const utils = {
 
     sortCollectionByKey: (direction, collection, key) => {
